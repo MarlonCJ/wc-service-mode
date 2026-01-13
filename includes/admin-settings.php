@@ -5,20 +5,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * --------------------------------------------------
- * Registro de opciones
+ * Registrar opciones
  * --------------------------------------------------
  */
 add_action( 'admin_init', function () {
 
+    register_setting( 'wcsm_settings_group', 'wcsm_service_category' );
     register_setting( 'wcsm_settings_group', 'wcsm_button_text' );
     register_setting( 'wcsm_settings_group', 'wcsm_price_text' );
     register_setting( 'wcsm_settings_group', 'wcsm_notice_text' );
 
-});
+} );
 
 /**
  * --------------------------------------------------
- * Menú en el admin
+ * Menú en WooCommerce
  * --------------------------------------------------
  */
 add_action( 'admin_menu', function () {
@@ -32,7 +33,7 @@ add_action( 'admin_menu', function () {
         'wcsm_render_settings_page'
     );
 
-});
+} );
 
 /**
  * --------------------------------------------------
@@ -47,10 +48,35 @@ function wcsm_render_settings_page() {
         <form method="post" action="options.php">
             <?php
             settings_fields( 'wcsm_settings_group' );
-            do_settings_sections( 'wcsm_settings_group' );
             ?>
 
             <table class="form-table">
+
+                <!-- Categoría -->
+                <tr>
+                    <th scope="row">Categoría de servicios</th>
+                    <td>
+                        <?php
+                        $selected_category = get_option( 'wcsm_service_category', '' );
+                        $categories = get_terms( array(
+                            'taxonomy'   => 'product_cat',
+                            'hide_empty' => false,
+                        ) );
+                        ?>
+                        <select name="wcsm_service_category">
+                            <option value="">— Seleccionar categoría —</option>
+                            <?php foreach ( $categories as $category ) : ?>
+                                <option value="<?php echo esc_attr( $category->slug ); ?>"
+                                    <?php selected( $selected_category, $category->slug ); ?>>
+                                    <?php echo esc_html( $category->name ); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                        <p class="description">Esta categoría será tratada como servicios.</p>
+                    </td>
+                </tr>
+
+                <!-- Botón -->
                 <tr>
                     <th scope="row">Texto del botón</th>
                     <td>
@@ -61,6 +87,7 @@ function wcsm_render_settings_page() {
                     </td>
                 </tr>
 
+                <!-- Precio -->
                 <tr>
                     <th scope="row">Texto del precio</th>
                     <td>
@@ -71,6 +98,7 @@ function wcsm_render_settings_page() {
                     </td>
                 </tr>
 
+                <!-- Aviso -->
                 <tr>
                     <th scope="row">Mensaje informativo</th>
                     <td>
@@ -86,6 +114,7 @@ function wcsm_render_settings_page() {
                         ?></textarea>
                     </td>
                 </tr>
+
             </table>
 
             <?php submit_button(); ?>

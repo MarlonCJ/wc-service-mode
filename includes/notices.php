@@ -1,25 +1,15 @@
 <?php
-/**
- * --------------------------------------------------
- * Avisos informativos para servicios
- * Archivo: includes/notices.php
- * --------------------------------------------------
- */
-
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-/**
- * --------------------------------------------------
- * Mensaje informativo debajo del botón de acción
- * --------------------------------------------------
- */
 add_action( 'woocommerce_after_add_to_cart_button', function () {
     global $product;
     /** @var WC_Product $product */
 
-    if ( $product && has_term( WCSM_SERVICE_CATEGORY, 'product_cat', $product->get_id() ) ) {
+    $service_category = get_option( 'wcsm_service_category', '' );
+
+    if ( $product && $service_category && has_term( $service_category, 'product_cat', $product->get_id() ) ) {
 
         $notice_text = get_option(
             'wcsm_notice_text',

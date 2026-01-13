@@ -14,6 +14,10 @@ add_action( 'admin_init', function () {
     register_setting( 'wcsm_settings_group', 'wcsm_button_text' );
     register_setting( 'wcsm_settings_group', 'wcsm_price_text' );
     register_setting( 'wcsm_settings_group', 'wcsm_notice_text' );
+    register_setting( 'wcsm_settings_group', 'wcsm_whatsapp_enabled' );
+    register_setting( 'wcsm_settings_group', 'wcsm_whatsapp_number' );
+    register_setting( 'wcsm_settings_group', 'wcsm_whatsapp_message' );
+
 
 } );
 
@@ -112,6 +116,43 @@ function wcsm_render_settings_page() {
                                 )
                             );
                         ?></textarea>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Activar WhatsApp</th>
+                    <td>
+                        <input type="checkbox" name="wcsm_whatsapp_enabled" value="1"
+                            <?php checked( get_option( 'wcsm_whatsapp_enabled' ), 1 ); ?>>
+                        <label>Mostrar botón de WhatsApp en servicios</label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Número de WhatsApp</th>
+                    <td>
+                        <input type="text"
+                            name="wcsm_whatsapp_number"
+                            value="<?php echo esc_attr( get_option( 'wcsm_whatsapp_number', '' ) ); ?>"
+                            class="regular-text">
+                        <p class="description">Ejemplo: 573001234567 (sin + ni espacios)</p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Mensaje de WhatsApp</th>
+                    <td>
+                        <textarea name="wcsm_whatsapp_message"
+                                rows="3"
+                                class="large-text"><?php
+                            echo esc_textarea(
+                                get_option(
+                                    'wcsm_whatsapp_message',
+                                    'Hola, estoy interesado en el servicio: {service}'
+                                )
+                            );
+                        ?></textarea>
+                        <p class="description">Usa <code>{service}</code> para insertar el nombre del servicio.</p>
                     </td>
                 </tr>
 

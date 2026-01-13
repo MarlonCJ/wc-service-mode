@@ -37,3 +37,5 @@ require_once __DIR__ . '/includes/admin-settings.php';
 require_once __DIR__ . '/includes/buttons.php';
 require_once __DIR__ . '/includes/pricing.php';
 require_once __DIR__ . '/includes/notices.php';
+require_once __DIR__ . '/includes/whatsapp.php';
+

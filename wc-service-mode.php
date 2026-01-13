@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WC Service Mode
  * Description: Convierte WooCommerce en un sistema optimizado para servicios profesionales.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: Tu Nombre
  * License: GPL v2 or later
  * Text Domain: wc-service-mode
@@ -38,4 +38,3 @@ require_once __DIR__ . '/includes/buttons.php';
 require_once __DIR__ . '/includes/pricing.php';
 require_once __DIR__ . '/includes/notices.php';
 require_once __DIR__ . '/includes/whatsapp.php';
-
